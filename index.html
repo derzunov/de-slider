@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>de Slider</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
+        integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <link rel="stylesheet" href="de-slider.css">
+</head>
+<body>
+
+<div class="container">
+  <h2 style="text-align: center;">deSlider demo</h2>
+  <div class="de-slider" style="width: 720px; height: 480px; margin: 25px auto;">
+    <div class="de-slider__line">
+      <div class="de-slider__slide">
+        <img src="/img/1.jpg" alt="">
+      </div>
+      <div class="de-slider__slide">
+        <img src="/img/2.jpg" alt="">
+      </div>
+      <div class="de-slider__slide">
+        <img src="/img/3.jpg" alt="">
+      </div>
+      <div class="de-slider__slide">
+        <img src="/img/4.jpg" alt="">
+      </div>
+      <div class="de-slider__slide">
+        <img src="/img/5.jpg" alt="">
+      </div>
+    </div>
+    <div class="de-slider__control de-slider__control_prev">
+
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8">
+        <path d="M1.5 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z" transform="translate(1)" />
+      </svg>
+
+    </div>
+    <div class="de-slider__control de-slider__control_next">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8">
+        <path d="M1.5 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z" transform="translate(1)" />
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- Lib -->
+<script src="de-slider.js"></script>
+
+<script>
+    // Client code (library consumer)
+    const slider = createDeSlider('.de-slider');
+
+    // Methods:
+    // slider.next();
+    // slider.prev();
+    // slider.showSlideByIndex();
+    // slider.startAutoSliding( ms );
+    // slider.stopAutoSliding();
+</script>
+</body>
+</html>
