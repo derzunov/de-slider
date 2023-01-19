@@ -1,0 +1,28 @@
+{
+  "name": "de-slider",
+  "version": "1.0.0",
+  "description": "simple slider",
+  "main": "de-slider.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/derzunov/de-slider.git"
+  },
+  "keywords": [
+    "slider"
+  ],
+  "author": "derzunov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/derzunov/de-slider/issues"
+  },
+  "homepage": "https://github.com/derzunov/de-slider#readme",
+  "devDependencies": {
+    "gh-pages": "^4.0.0"
+  }
+}
