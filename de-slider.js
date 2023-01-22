@@ -135,6 +135,8 @@
         }
 
         // Начать анимацию при попадании слайдера в зону видимости
+        // firstSlideDelay - Задержка первого перелистывания после попадания в зону видимости
+        // autoSlidingIntervalTime - интервал последующего автослайдинга
         const startAutoSlidingWhenVisible = ( firstSlideDelay = 2000, autoSlidingIntervalTime = 5000 ) => {
             const $slider = document.querySelector( '.de-slider' )
 
