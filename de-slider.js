@@ -12,9 +12,9 @@
         const $sliderPrev = $slider.querySelector( '.de-slider__control_prev' )
 
         // Vars
-        const sliderWidth = $slider.clientWidth
-        const slidesLength = $sliderSlides.length
-        const sliderLineWidth = sliderWidth * slidesLength + sliderWidth * 2
+        let sliderWidth = $slider.clientWidth
+        let slidesLength = $sliderSlides.length
+        let sliderLineWidth = sliderWidth * slidesLength + sliderWidth * 2
         let autoSlidingInterval = null
         let activeSlideIndex = 1
 
@@ -102,6 +102,14 @@
         $sliderNext.addEventListener( 'click', () => { next() } )
         $sliderPrev.addEventListener( 'click', () => { prev() } )
         $slider.addEventListener( 'click', () => { stopAutoSliding() } )
+
+        window.addEventListener( 'resize', () => {
+            sliderWidth = $slider.clientWidth
+            slidesLength = $sliderSlides.length
+            sliderLineWidth = sliderWidth * slidesLength + sliderWidth * 2
+            $sliderLine.style.width = `${ sliderLineWidth }px`
+            showSlideByIndex( 0 )
+        } )
 
         // API
         return {
