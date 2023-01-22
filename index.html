@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>deSlider</title>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
         integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"/>
@@ -10,8 +11,8 @@
 </head>
 <body>
 
-<div class="container">
-  <h2 style="text-align: center;">Demo</h2>
+<div class="container" style="padding-bottom: 40px;">
+  <h2 style="text-align: center; margin: 30px 0 40px 0;">Я хочу, чтобы ты меня листал</h2>
   <div class="de-slider">
     <div class="de-slider__line">
       <div class="de-slider__slide">
@@ -26,17 +27,28 @@
       <div class="de-slider__slide">
         <img src="img/4.jpeg" alt="">
       </div>
+      <div class="de-slider__slide">
+        <img src="img/5.jpeg" alt="">
+      </div>
     </div>
     <div class="de-slider__control de-slider__control_prev">
-
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8">
-        <path d="M1.5 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z" transform="translate(1)" />
+      <svg id="Layer_1" version="1.1" viewBox="0 0 128 128"
+           xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+           xmlns:xlink="http://www.w3.org/1999/xlink">
+        <g>
+          <line style="stroke-width:12;stroke-linecap:square;stroke-miterlimit:10;" x1="40.5" x2="87.5" y1="17" y2="64"/>
+          <line style="stroke-width:12;stroke-linecap:square;stroke-miterlimit:10;" x1="87.5" x2="40.5" y1="64" y2="111"/>
+        </g>
       </svg>
-
     </div>
     <div class="de-slider__control de-slider__control_next">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8">
-        <path d="M1.5 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z" transform="translate(1)" />
+      <svg id="Layer_1" version="1.1" viewBox="0 0 128 128"
+           xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+           xmlns:xlink="http://www.w3.org/1999/xlink">
+        <g>
+          <line style="stroke-width:12;stroke-linecap:square;stroke-miterlimit:10;" x1="40.5" x2="87.5" y1="17" y2="64"/>
+          <line style="stroke-width:12;stroke-linecap:square;stroke-miterlimit:10;" x1="87.5" x2="40.5" y1="64" y2="111"/>
+        </g>
       </svg>
     </div>
   </div>
@@ -47,8 +59,8 @@
 
 <script>
     // Client code ( library consumer )
-    const slider = createDeSlider( '.de-slider' )
-    slider.startAutoSliding( 5000 )
+    const slider = createDeSlider('.de-slider')
+    //slider.startAutoSliding(5000)
 
     // Methods:
     // slider.next();
