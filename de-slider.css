@@ -20,35 +20,36 @@
 .de-slider__control {
     cursor: pointer;
 
-    width: 40px;
-    height: 40px;
+    width: 70px;
+    height: 100%;
 
     position: absolute;
-    top: 50%;
-    margin-top: -20px;
+    top: 0;
 }
 
 .de-slider__control:hover {}
 
 .de-slider__control_next {
-    right: 30px;
+    padding-right: 30px;
+    right: 0;
 }
 
 .de-slider__control_prev {
-    left: 30px;
+    left: 0;
     transform: rotate(180deg);
 }
 
 .de-slider__control svg {
-    stroke: rgb( 255, 255, 255 );
-    opacity: 0.9;
-    width: 40px;
-    height: 40px;
-}
-
-.de-slider__control_black svg {
     stroke: rgb( 0, 0, 0 );
     opacity: 0.9;
     width: 40px;
     height: 40px;
+    position: absolute;
+    top: 50%;
+    margin-top: -20px;
+}
+
+._black-arrows .de-slider__control svg {
+    stroke: rgb( 0, 0, 0 );
+    opacity: 0.9;
 }
