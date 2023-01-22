@@ -6,7 +6,7 @@
 }
 .de-slider__line {
     display: flex;
-    height: 100%;
+    height: auto;
 }
 
 .de-slider__slide {
@@ -14,7 +14,7 @@
 }
 .de-slider__slide > img {
     width: 100%;
-    height: auto;
+    height: 100%;
 }
 
 .de-slider__control {
