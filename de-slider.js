@@ -146,10 +146,10 @@
                     setTimeout( () => {
                         next() // первое перелистывание
                         startAutoSliding() // Запускаем автоперелистывание
-
-                        // Больше не нужно слушать попадание в зону видимости
-                        observer.unobserve( $slider )
                     }, firstSlideDelay )
+
+                    // Больше не нужно слушать попадание в зону видимости
+                    observer.unobserve( $slider )
                 }
             }
 
@@ -161,7 +161,7 @@
                     threshold: [0.5, 1]
                 }
             );
-            observer.observe( $slider );
+            observer.observe( $slider )
         }
 
         // Listeners
