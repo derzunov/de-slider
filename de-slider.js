@@ -122,14 +122,47 @@
             }
         }
 
-        const startAutoSliding = ( ms = 3000 ) => {
-            autoSlidingInterval = setInterval( () => {
-                next()
-            }, ms )
+        const startAutoSliding = ( ms = 5000 ) => {
+            if ( !autoSlidingInterval ) {
+                autoSlidingInterval = setInterval( () => {
+                    next()
+                }, ms )
+            }
         }
 
-        const stopAutoSliding = ( ms = 3000 ) => {
+        const stopAutoSliding = () => {
             clearInterval( autoSlidingInterval )
+        }
+
+        // Начать анимацию при попадании слайдера в зону видимости
+        const startAutoSlidingWhenVisible = ( firstSlideDelay ) => {
+            const $slider = document.querySelector( '.de-slider' )
+
+            const onSliderVisibilityChange = ( sliderElement ) => {
+                // Слайдер попал в зону видимости
+                if ( sliderElement[0]?.isIntersecting ) {
+                    // Первое перелистывание после попадания в зону видимости ч/з 2s
+                    // Дальше старт стандартного автоперелистывания с заданным интервалом
+                    setTimeout( () => {
+                        next() // первое перелистывание
+                        startAutoSliding() // Запускаем автоперелистывание
+                    }, firstSlideDelay )
+
+                    // Больше не нужно слушать попадание в зону видимости
+                    // Так как таймер на старт автоперелистывания уже запущен
+                    observer.unobserve( $slider )
+                }
+            }
+
+            // Слушаем изменения видимости слайдера
+            let observer = new IntersectionObserver(
+                onSliderVisibilityChange,
+                {
+                    rootMargin: '0px',
+                    threshold: [0.5, 1]
+                }
+            );
+            observer.observe( $slider )
         }
 
         // Listeners
@@ -151,6 +184,7 @@
             prev,
             startAutoSliding,
             stopAutoSliding,
+            startAutoSlidingWhenVisible,
         }
     }
 
