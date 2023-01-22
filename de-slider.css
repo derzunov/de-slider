@@ -1,6 +1,5 @@
 .de-slider {
     width: 100%;
-    height: 100%;
     overflow: hidden;
 
     position: relative;
@@ -8,16 +7,14 @@
 .de-slider__line {
     display: flex;
     height: 100%;
-    transition: transform 0.5s ease-in-out;
 }
+
 .de-slider__slide {
     width: 100%;
-    height: 100%;
 }
 .de-slider__slide > img {
-    object-fit: cover;
     width: 100%;
-    height: 100%;
+    height: auto;
 }
 
 .de-slider__control {
