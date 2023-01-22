@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<div class="container" style="padding-bottom: 100vh; padding-top: 100vh;">
+<div class="container" style="padding-bottom: 40px;">
   <h2 style="text-align: center; margin: 30px 0 40px 0;">Я хочу, чтобы ты листал меня...</h2>
   <div class="de-slider">
     <div class="de-slider__line">
@@ -41,7 +41,7 @@
 <script>
     // Client code ( library consumer )
     const slider = createDeSlider('.de-slider')
-    slider.startAutoSlidingWhenVisible( 2000 )
+    slider.startAutoSlidingWhenVisible( 2000, 5000 )
     // Methods:
     // slider.next();
     // slider.prev();

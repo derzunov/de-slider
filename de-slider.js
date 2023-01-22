@@ -122,11 +122,11 @@
             }
         }
 
-        const startAutoSliding = ( ms = 5000 ) => {
+        const startAutoSliding = ( autoSlidingIntervalTime = 5000 ) => {
             if ( !autoSlidingInterval ) {
                 autoSlidingInterval = setInterval( () => {
                     next()
-                }, ms )
+                }, autoSlidingIntervalTime )
             }
         }
 
@@ -135,7 +135,7 @@
         }
 
         // Начать анимацию при попадании слайдера в зону видимости
-        const startAutoSlidingWhenVisible = ( firstSlideDelay ) => {
+        const startAutoSlidingWhenVisible = ( firstSlideDelay = 2000, autoSlidingIntervalTime = 5000 ) => {
             const $slider = document.querySelector( '.de-slider' )
 
             const onSliderVisibilityChange = ( sliderElement ) => {
@@ -145,7 +145,7 @@
                     // Дальше старт стандартного автоперелистывания с заданным интервалом
                     setTimeout( () => {
                         next() // первое перелистывание
-                        startAutoSliding() // Запускаем автоперелистывание
+                        startAutoSliding( autoSlidingIntervalTime ) // Запускаем автоперелистывание
                     }, firstSlideDelay )
 
                     // Больше не нужно слушать попадание в зону видимости
