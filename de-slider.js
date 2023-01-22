@@ -4,12 +4,11 @@
         // Constants
         const TRANSITION_TIME = 1500; // ms
         const DOM_RENDER_DELAY = 20; // ms
+
         // Elements
         const $slider = document.querySelector( sliderSelector )
         const $sliderLine = $slider.querySelector( '.de-slider__line' )
         const $sliderSlides = $sliderLine.querySelectorAll( '.de-slider__slide' )
-        const $sliderNext = $slider.querySelector( '.de-slider__control_next' )
-        const $sliderPrev = $slider.querySelector( '.de-slider__control_prev' )
 
         // Vars
         let sliderWidth = $slider.clientWidth
@@ -18,14 +17,49 @@
         let autoSlidingInterval = null
         let activeSlideIndex = 1
 
+        // Templates
+        const prevElementTemplate = '<div class="de-slider__control de-slider__control_prev">\n' +
+            '      <svg id="Layer_1" version="1.1" viewBox="0 0 128 128"\n' +
+            '           xml:space="preserve" xmlns="http://www.w3.org/2000/svg"\n' +
+            '           xmlns:xlink="http://www.w3.org/1999/xlink">\n' +
+            '        <g>\n' +
+            '          <line style="stroke-width:12;stroke-linecap:square;stroke-miterlimit:10;" x1="40.5" x2="87.5" y1="17" y2="64"/>\n' +
+            '          <line style="stroke-width:12;stroke-linecap:square;stroke-miterlimit:10;" x1="87.5" x2="40.5" y1="64" y2="111"/>\n' +
+            '        </g>\n' +
+            '      </svg>\n' +
+            '    </div>'
+
+        const nextElementTemplate = '<div class="de-slider__control de-slider__control_next">\n' +
+            '      <svg id="Layer_1" version="1.1" viewBox="0 0 128 128"\n' +
+            '           xml:space="preserve" xmlns="http://www.w3.org/2000/svg"\n' +
+            '           xmlns:xlink="http://www.w3.org/1999/xlink">\n' +
+            '        <g>\n' +
+            '          <line style="stroke-width:12;stroke-linecap:square;stroke-miterlimit:10;" x1="40.5" x2="87.5" y1="17" y2="64"/>\n' +
+            '          <line style="stroke-width:12;stroke-linecap:square;stroke-miterlimit:10;" x1="87.5" x2="40.5" y1="64" y2="111"/>\n' +
+            '        </g>\n' +
+            '      </svg>\n' +
+            '    </div>'
+
         // Private methods
         const addAnimation = () => {
-            $sliderLine.style.transition = `transform ${ TRANSITION_TIME }ms ease-in-out`
+            $sliderLine.style.transition = `transform ${ TRANSITION_TIME }ms cubic-bezier(.52,0,.42,1)`
         }
 
         const removeAnimation = () => {
             $sliderLine.style.transition = 'none'
         }
+
+        const createElementFromHTML = ( htmlString ) => {
+            const div = document.createElement( 'div' )
+            div.innerHTML = htmlString.trim()
+            return div.firstChild
+        }
+
+        // Code
+        const $sliderPrev = createElementFromHTML( prevElementTemplate )
+        const $sliderNext = createElementFromHTML( nextElementTemplate )
+        $slider.append( $sliderPrev )
+        $slider.append( $sliderNext )
 
         $sliderLine.append( $sliderSlides[ 0 ].cloneNode( true ) )
         $sliderLine.prepend( $sliderSlides[ slidesLength - 1 ].cloneNode( true ) )
