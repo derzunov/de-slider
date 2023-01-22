@@ -2,7 +2,7 @@
     const createDeSlider = ( sliderSelector = '.de-slider' ) => {
 
         // Constants
-        const TRANSITION_TIME = 1500; // ms
+        const TRANSITION_TIME = 1200; // ms
         const DOM_RENDER_DELAY = 20; // ms
 
         // Elements
