@@ -41,31 +41,14 @@
 <script>
     // Client code ( library consumer )
     const slider = createDeSlider('.de-slider')
+    slider.startAutoSlidingWhenVisible( 2000 )
     // Methods:
     // slider.next();
     // slider.prev();
     // slider.showSlideByIndex();
     // slider.startAutoSliding( ms );
+    // slider.startAutoSlidingWhenVisible( ms )
     // slider.stopAutoSliding();
-    const $sliderElement = document.querySelector('.de-slider')
-
-    const onSliderVisibilityChange = (sliderElement) => {
-        // слайдер попал в зону видимости
-        if ( sliderElement[0]?.isIntersecting ) {
-            slider.startAutoSliding(5000)
-            observer.unobserve($sliderElement)
-        }
-    }
-
-    // Слушаем изменения видимости слайдера
-    let observer = new IntersectionObserver(
-        onSliderVisibilityChange,
-        {
-            rootMargin: '0px',
-            threshold: [0.5, 1]
-        }
-    );
-    observer.observe($sliderElement);
 </script>
 </body>
 </html>
