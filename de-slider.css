@@ -17,12 +17,6 @@
     height: auto;
 }
 
-.de-slider__control svg {
-    stroke: rgb( 255, 255, 255 );
-    opacity: 0.9;
-    width: 40px;
-    height: 40px;
-}
 .de-slider__control {
     cursor: pointer;
 
@@ -43,4 +37,18 @@
 .de-slider__control_prev {
     left: 30px;
     transform: rotate(180deg);
+}
+
+.de-slider__control svg {
+    stroke: rgb( 255, 255, 255 );
+    opacity: 0.9;
+    width: 40px;
+    height: 40px;
+}
+
+.de-slider__control_black svg {
+    stroke: rgb( 0, 0, 0 );
+    opacity: 0.9;
+    width: 40px;
+    height: 40px;
 }

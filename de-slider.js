@@ -2,7 +2,7 @@
     const createDeSlider = ( sliderSelector = '.de-slider' ) => {
 
         // Constants
-        const TRANSITION_TIME = 600; // ms
+        const TRANSITION_TIME = 900; // ms
         const DOM_RENDER_DELAY = 20; // ms
         // Elements
         const $slider = document.querySelector( sliderSelector )
@@ -95,12 +95,13 @@
         }
 
         const stopAutoSliding = ( ms = 3000 ) => {
-            clearInterval(autoSlidingInterval)
+            clearInterval( autoSlidingInterval )
         }
 
         // Listeners
         $sliderNext.addEventListener( 'click', () => { next() } )
         $sliderPrev.addEventListener( 'click', () => { prev() } )
+        $slider.addEventListener( 'click', () => { stopAutoSliding() } )
 
         // API
         return {
