@@ -123,9 +123,11 @@
         }
 
         const startAutoSliding = ( ms = 3000 ) => {
-            autoSlidingInterval = setInterval( () => {
-                next()
-            }, ms )
+            if ( !autoSlidingInterval ) {
+                autoSlidingInterval = setInterval( () => {
+                    next()
+                }, ms )
+            }
         }
 
         const stopAutoSliding = ( ms = 3000 ) => {
