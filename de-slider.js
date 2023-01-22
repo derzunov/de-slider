@@ -95,12 +95,13 @@
         }
 
         const stopAutoSliding = ( ms = 3000 ) => {
-            clearInterval(autoSlidingInterval)
+            clearInterval( autoSlidingInterval )
         }
 
         // Listeners
         $sliderNext.addEventListener( 'click', () => { next() } )
         $sliderPrev.addEventListener( 'click', () => { prev() } )
+        $slider.addEventListener( 'click', () => { stopAutoSliding() } )
 
         // API
         return {
