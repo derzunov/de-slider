@@ -15,6 +15,7 @@
         let slidesLength = $sliderSlides.length
         let sliderLineWidth = sliderWidth * slidesLength + sliderWidth * 2
         let autoSlidingInterval = null
+        let firstSlideTimeout = null
         let activeSlideIndex = 1
 
         // Templates
@@ -96,20 +97,20 @@
 
 
         // Methods
-        const activateDotByIndex = ( slideIndex ) => {
+        const activateDotByIndex = ( dotIndex ) => {
             // Additional slides correction
-            if ( slideIndex === 0 ) {
-                slideIndex = 5
+            if ( dotIndex === 0 ) {
+                dotIndex = 5
             }
-            if ( slideIndex === 6 ) {
-                slideIndex = 1
+            if ( dotIndex === 6 ) {
+                dotIndex = 1
             }
             // Deactivate all dots
             dotsArray.forEach( ( $dotItem ) => {
                 $dotItem?.classList.remove( 'de-slider__dot_active' )
             } )
             // Activate actual dot
-            dotsArray[ slideIndex - 1 ]?.classList.add( 'de-slider__dot_active' )
+            dotsArray[ dotIndex - 1 ]?.classList.add( 'de-slider__dot_active' )
         }
 
         const showSlideByIndex = ( slideIndex ) => {
@@ -119,45 +120,28 @@
         }
 
         const next = () => {
-            if ( activeSlideIndex >= slidesLength - 1 ) {
-                // Сначала слайдимся на склонированный в конец первый слайд с анимацией
-                showSlideByIndex( activeSlideIndex + 1 )
-
-                // Ждём окончания анимации
+            if ( activeSlideIndex === 6 ) {
+                removeAnimation()
+                showSlideByIndex( 1 )
                 setTimeout( () => {
-                    // Отключаем анимацию
-                    removeAnimation()
-
-                    // Без анимации незаметно переключаемся на нулевой слайд
-                    showSlideByIndex( 0 )
-                    // Возвращаем анимацию, дав браузеру немного времени на перерендер без анимации на нулевой элемент
-                    setTimeout( () => {
-                        // Возвращаем анимацию
-                        addAnimation()
-                    }, DOM_RENDER_DELAY )
-                }, TRANSITION_TIME )
+                    // Возвращаем анимацию
+                    addAnimation()
+                    showSlideByIndex( activeSlideIndex + 1 )
+                }, DOM_RENDER_DELAY )
             } else {
                 showSlideByIndex( activeSlideIndex + 1 )
             }
         }
         const prev = () => {
-            if ( activeSlideIndex <= 1 ) {
-                // Сначала слайдимся на склонированный в начало последний слайд с анимацией
-                showSlideByIndex( activeSlideIndex - 1 )
-
-                // Ждём окончания анимации
+            if ( activeSlideIndex === 0 ) {
+                removeAnimation()
+                showSlideByIndex( slidesLength )
+                // Возвращаем анимацию, дав браузеру немного времени на перерендер без анимации на последний элемент
                 setTimeout( () => {
-                    // Отключаем анимацию
-                    removeAnimation()
-
-                    // Без анимации незаметно переключаемся на последний слайд
-                    showSlideByIndex( slidesLength )
-                    // Возвращаем анимацию, дав браузеру немного времени на перерендер без анимации на последний элемент
-                    setTimeout( () => {
-                        // Возвращаем анимацию
-                        addAnimation()
-                    }, DOM_RENDER_DELAY )
-                }, TRANSITION_TIME )
+                    // Возвращаем анимацию
+                    addAnimation()
+                    showSlideByIndex( activeSlideIndex - 1 )
+                }, DOM_RENDER_DELAY )
             } else {
                 showSlideByIndex( activeSlideIndex - 1 )
             }
@@ -172,6 +156,7 @@
         }
 
         const stopAutoSliding = () => {
+            clearTimeout( firstSlideTimeout )
             clearInterval( autoSlidingInterval )
         }
 
@@ -186,7 +171,7 @@
                 if ( sliderElement[0]?.isIntersecting ) {
                     // Первое перелистывание после попадания в зону видимости ч/з 2s
                     // Дальше старт стандартного автоперелистывания с заданным интервалом
-                    setTimeout( () => {
+                    firstSlideTimeout = setTimeout( () => {
                         next() // первое перелистывание
                         startAutoSliding( autoSlidingIntervalTime ) // Запускаем автоперелистывание
                     }, firstSlideDelay )
