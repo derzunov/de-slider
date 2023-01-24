@@ -15,6 +15,7 @@
         let slidesLength = $sliderSlides.length
         let sliderLineWidth = sliderWidth * slidesLength + sliderWidth * 2
         let autoSlidingInterval = null
+        let firstSlideTimeout = null
         let activeSlideIndex = 1
 
         // Templates
@@ -40,6 +41,80 @@
             '      </svg>\n' +
             '    </div>'
 
+        const dotsContainerTemplate = '<div class="de-slider__dots"></div>'
+        const dotTemplate = '<div class="de-slider__dot"></div>'
+
+        const createElementFromHTML = ( htmlString ) => {
+            const div = document.createElement( 'div' )
+            div.innerHTML = htmlString.trim()
+            return div.firstChild
+        }
+
+        // Code
+
+        // Create controls
+        const $sliderPrev = createElementFromHTML( prevElementTemplate )
+        const $sliderNext = createElementFromHTML( nextElementTemplate )
+        $slider.append( $sliderPrev )
+        $slider.append( $sliderNext )
+
+        // Create dots
+        const $dotsContainer = createElementFromHTML( dotsContainerTemplate )
+        const dotsArray = [];
+
+        for ( let index = 1; index <= slidesLength; index++ ) {
+            const $dot = createElementFromHTML( dotTemplate )
+            $dotsContainer.append( $dot )
+            dotsArray.push( $dot )
+
+            $dot.addEventListener( 'click', () => {
+                showSlideByIndex( index );
+
+                if ( index > slidesLength - 1 ) {
+                    console.log( slidesLength )
+                    // Ждём окончания анимации
+                    setTimeout( () => {
+                        // Отключаем анимацию
+                        removeAnimation()
+
+                        // Без анимации незаметно переключаемся на нулевой слайд
+                        showSlideByIndex( 0 )
+                        // Возвращаем анимацию, дав браузеру немного времени на перерендер без анимации на нулевой элемент
+                        setTimeout( () => {
+                            // Возвращаем анимацию
+                            addAnimation()
+                        }, DOM_RENDER_DELAY )
+                    }, TRANSITION_TIME )
+                }
+
+                if ( activeSlideIndex < 1 ) {
+                    // Ждём окончания анимации
+                    setTimeout( () => {
+                        // Отключаем анимацию
+                        removeAnimation()
+
+                        // Без анимации незаметно переключаемся на последний слайд
+                        showSlideByIndex( slidesLength )
+                        // Возвращаем анимацию, дав браузеру немного времени на перерендер без анимации на последний элемент
+                        setTimeout(() => {
+                            // Возвращаем анимацию
+                            addAnimation()
+                        }, DOM_RENDER_DELAY)
+                    }, TRANSITION_TIME )
+                }
+
+            } )
+        }
+
+        $slider.append( $dotsContainer )
+
+        // Prepare additional slides for cycle sliding
+        $sliderLine.append( $sliderSlides[ 0 ].cloneNode( true ) )
+        $sliderLine.prepend( $sliderSlides[ slidesLength - 1 ].cloneNode( true ) )
+
+        $sliderLine.style.width = `${ sliderLineWidth }px`
+        $sliderLine.style.transform = `translateX(-${ activeSlideIndex * sliderWidth }px)`
+
         // Private methods
         const addAnimation = () => {
             $sliderLine.style.transition = `transform ${ TRANSITION_TIME }ms cubic-bezier(.52,0,.42,1)`
@@ -49,34 +124,37 @@
             $sliderLine.style.transition = 'none'
         }
 
-        const createElementFromHTML = ( htmlString ) => {
-            const div = document.createElement( 'div' )
-            div.innerHTML = htmlString.trim()
-            return div.firstChild
-        }
-
-        // Code
-        const $sliderPrev = createElementFromHTML( prevElementTemplate )
-        const $sliderNext = createElementFromHTML( nextElementTemplate )
-        $slider.append( $sliderPrev )
-        $slider.append( $sliderNext )
-
-        $sliderLine.append( $sliderSlides[ 0 ].cloneNode( true ) )
-        $sliderLine.prepend( $sliderSlides[ slidesLength - 1 ].cloneNode( true ) )
-
-        $sliderLine.style.width = `${ sliderLineWidth }px`
-        $sliderLine.style.transform = `translateX(-${ activeSlideIndex * sliderWidth }px)`
-
         // Включаем анимацию после подготовки DOM
         setTimeout( () => {
             addAnimation()
         }, DOM_RENDER_DELAY )
 
+
         // Methods
+        const activateDotByIndex = ( slideIndex ) => {
+            console.log( slideIndex )
+            // Additional slides correction
+            if ( slideIndex === 0 ) {
+                slideIndex = 5
+            }
+            if ( slideIndex === 6 ) {
+                slideIndex = 1
+            }
+            console.log( slideIndex )
+            // Deactivate all dots
+            dotsArray.forEach( ( $dotItem ) => {
+                $dotItem?.classList.remove( 'de-slider__dot_active' )
+            } )
+            // Activate actual dot
+            dotsArray[ slideIndex - 1 ]?.classList.add( 'de-slider__dot_active' )
+        }
+
         const showSlideByIndex = ( slideIndex ) => {
             $sliderLine.style.transform = `translateX(-${ slideIndex * sliderWidth }px)`
+            activateDotByIndex( slideIndex )
             activeSlideIndex = slideIndex
         }
+
         const next = () => {
             if ( activeSlideIndex >= slidesLength - 1 ) {
                 // Сначала слайдимся на склонированный в конец первый слайд с анимацией
@@ -131,6 +209,7 @@
         }
 
         const stopAutoSliding = () => {
+            clearTimeout( firstSlideTimeout )
             clearInterval( autoSlidingInterval )
         }
 
@@ -145,7 +224,7 @@
                 if ( sliderElement[0]?.isIntersecting ) {
                     // Первое перелистывание после попадания в зону видимости ч/з 2s
                     // Дальше старт стандартного автоперелистывания с заданным интервалом
-                    setTimeout( () => {
+                    firstSlideTimeout = setTimeout( () => {
                         next() // первое перелистывание
                         startAutoSliding( autoSlidingIntervalTime ) // Запускаем автоперелистывание
                     }, firstSlideDelay )
@@ -166,6 +245,8 @@
             );
             observer.observe( $slider )
         }
+
+        activateDotByIndex( 1 );
 
         // Listeners
         $sliderNext.addEventListener( 'click', () => { next() } )
