@@ -2,8 +2,8 @@
     const createDeSlider = ( sliderSelector = '.de-slider' ) => {
 
         // Constants
-        const TRANSITION_TIME = 1200; // ms
-        const DOM_RENDER_DELAY = 20; // ms
+        const TRANSITION_TIME = 1200 // ms
+        const DOM_RENDER_DELAY = 20 // ms
 
         // Elements
         const $slider = document.querySelector( sliderSelector )
@@ -60,7 +60,7 @@
 
         // Create dots
         const $dotsContainer = createElementFromHTML( dotsContainerTemplate )
-        const dotsArray = [];
+        const dotsArray = []
 
         for ( let index = 1; index <= slidesLength; index++ ) {
             const $dot = createElementFromHTML( dotTemplate )
@@ -68,7 +68,7 @@
             dotsArray.push( $dot )
 
             $dot.addEventListener( 'click', () => {
-                showSlideByIndex( index );
+                showSlideByIndex( index )
             } )
         }
 
@@ -189,11 +189,11 @@
                     rootMargin: '0px',
                     threshold: [0.5, 1]
                 }
-            );
+            )
             observer.observe( $slider )
         }
 
-        activateDotByIndex( 1 );
+        activateDotByIndex( 1 )
 
         // Listeners
         $sliderNext.addEventListener( 'click', () => { next() } )
